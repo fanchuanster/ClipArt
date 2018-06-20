@@ -21,7 +21,7 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal" Margin="5">
-                        <local:SVGImage Height="25" Width="25" SizeType="ContentToSizeStretch" ImageSource="{Binding Path=SVGImage}"/>
+            <local:SVGImage Height="25" Width="25" SizeType="ContentToSizeStretch" ImageSourceFile="{Binding Path=FullPath}"/>
                         <Label Margin="5,0,0,0" Height="25" Content="{Binding Path=Filename}" />
                     </StackPanel>
                 </DataTemplate>
@@ -40,7 +40,7 @@
                 <local2:SizeTypeForm x:Name="m_sizeTypeForm" ImageSource="{Binding ElementName=m_filelist, Path=SelectedItem.SVGImage}"/>
             </TabItem>
             <TabItem Header="Full size">
-                <local2:FullSizeForm x:Name="m_fullSizeForm" ImageSource="{Binding ElementName=m_filelist, Path=SelectedItem.SVGImage}"/>
+        <local2:FullSizeForm x:Name="m_fullSizeForm" ImageSourceFile="{Binding ElementName=m_filelist, Path=SelectedItem.FullPath}"/>
             </TabItem>
             <TabItem Header="Debug">
                 <local2:DebugForm x:Name="m_debugForm" SVGItemSource="{Binding ElementName=m_filelist, Path=SelectedItem}"/>

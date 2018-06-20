@@ -124,9 +124,9 @@ namespace ClipArt
                 return _render;
             }
         }
-        public void SetImage(string filecontent)
+        public void SetImage(string filePath)
 		{
-			SetImage(render.LoadDrawing(filecontent));
+			SetImage(render.LoadDrawing(filePath));
 		}
         private void SetBrush(Brush brush)
         {

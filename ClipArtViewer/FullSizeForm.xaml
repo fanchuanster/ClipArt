@@ -4,31 +4,71 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:system="clr-namespace:System;assembly=mscorlib"
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
             xmlns:local="clr-namespace:ClipArt;assembly=ClipArt"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
 
-    <Grid Grid.Row="0" Grid.Column="0" Margin="3">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0" >
-            <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="5" >
-            <ComboBox MinWidth="180" HorizontalAlignment="Right" FlowDirection="LeftToRight" x:Name="m_sizeTypeCombo"
+  <Grid Grid.Row="0" Grid.Column="0" Margin="3">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0" >
+      <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="5" >
+        <ComboBox MinWidth="180" HorizontalAlignment="Right" FlowDirection="LeftToRight" 
                       SelectedValue="{Binding ElementName=m_canvas1, Path=SizeType}" HorizontalContentAlignment="Right">
-                <system:String>None</system:String>
-                <system:String>ContentToSizeNoStretch</system:String>
-                <system:String>ContentToSizeStretch</system:String>
-                <system:String>SizeToContent</system:String>
-            </ComboBox>
-            <Label>SizeType</Label>
-            </StackPanel>
-            <Line Stroke="LightGray" StrokeThickness="1" X2="1" Stretch="Fill" Margin="3"></Line>
-        </StackPanel>
-        <local:SVGImage x:Name="m_canvas1" Grid.Row="1" Margin="3"
+          <system:String>None</system:String>
+          <system:String>ContentToSizeNoStretch</system:String>
+          <system:String>ContentToSizeStretch</system:String>
+          <system:String>SizeToContent</system:String>
+        </ComboBox>
+        <Label>SizeType</Label>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft" Margin="5" >
+        <StackPanel.Resources>
+            <ResourceDictionary>
+              <ObjectDataProvider MethodName="GetType" 
+    ObjectType="{x:Type sys:Type}" x:Key="colorsTypeOdp">
+                <ObjectDataProvider.MethodParameters>
+                  <sys:String>System.Windows.Media.Colors, PresentationCore,
+            Version=3.0.0.0, Culture=neutral, 
+            PublicKeyToken=31bf3856ad364e35</sys:String>
+                </ObjectDataProvider.MethodParameters>
+              </ObjectDataProvider>
+              <ObjectDataProvider ObjectInstance="{StaticResource colorsTypeOdp}"  
+
+    MethodName="GetProperties" x:Key="colorPropertiesOdp">
+              </ObjectDataProvider>
+
+            </ResourceDictionary>
+          </StackPanel.Resources>
+
+        <ComboBox Name="superCombo" MinWidth="180" HorizontalAlignment="Right" FlowDirection="LeftToRight" HorizontalContentAlignment="Right"
+
+    ItemsSource="{Binding Source={StaticResource colorPropertiesOdp}}" 
+
+	SelectedValuePath="Name"  SelectedValue="{Binding ElementName=uccolorpicker, 
+	Path=SelectedColor}">
+          <ComboBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Width="20" Height="20" Margin="5" 
+
+			Background="{Binding Name}"/>
+                <TextBlock  Text="{Binding Name}" VerticalAlignment="Center"/>
+              </StackPanel>
+            </DataTemplate>
+          </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Label>FillColor</Label>
+      </StackPanel>
+      <Line Stroke="LightGray" StrokeThickness="1" X2="1" Stretch="Fill" Margin="3"></Line>
+    </StackPanel>
+    <local:SVGImage x:Name="m_canvas1" Grid.Row="1" Margin="3" FillBrush="{Binding ElementName=superCombo, Path=SelectedValue}"
                               SizeType="ContentToSizeNoStretch"
                               Padding="2" BorderThickness="0.5"></local:SVGImage>
-    </Grid>
+  </Grid>
 
 </UserControl>
